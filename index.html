@@ -6,14 +6,17 @@
     <title>EcoLife - Sản Phẩm Xanh</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Font chữ hiện đại, thanh lịch giống các trang web thiết kế */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
+        /* Ẩn thanh cuộn cho mượt */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
     </style>
 </head>
-<body class="bg-[#fafafa] text-gray-800 antialiased">
+<body class="bg-[#fafafa] text-gray-800 antialiased overflow-x-hidden relative">
 
-    <nav class="bg-white/80 backdrop-blur-md shadow-sm fixed w-full z-50 top-0 transition-all">
+    <nav class="bg-white/90 backdrop-blur-md shadow-sm fixed w-full z-40 top-0 transition-all">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex-shrink-0 flex items-center cursor-pointer">
@@ -25,8 +28,9 @@
                     <a href="#about" class="text-gray-500 font-medium hover:text-emerald-600 transition-colors">Về chúng tôi</a>
                 </div>
                 <div>
-                    <button class="bg-emerald-600 text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-emerald-700 transition shadow-md shadow-emerald-200">
-                        Giỏ hàng (0)
+                    <button id="openCartBtn" class="bg-emerald-600 text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-emerald-700 transition shadow-md flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        <span id="cartCountBadge">0</span>
                     </button>
                 </div>
             </div>
@@ -43,14 +47,6 @@
             <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600 mb-10">
                 Các sản phẩm thay thế đồ nhựa dùng một lần, an toàn cho sức khỏe và thân thiện với môi trường. Khám phá bộ sưu tập xanh ngay hôm nay.
             </p>
-            <div class="flex justify-center gap-4">
-                <a href="#products" class="px-8 py-3.5 bg-gray-900 text-white rounded-full text-lg font-medium hover:bg-gray-800 transition shadow-lg">
-                    Mua sắm ngay
-                </a>
-                <a href="#about" class="px-8 py-3.5 bg-white text-gray-900 border border-gray-200 rounded-full text-lg font-medium hover:bg-gray-50 transition shadow-sm">
-                    Tìm hiểu thêm
-                </a>
-            </div>
         </div>
     </section>
 
@@ -64,16 +60,16 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
                 
                 <div class="group bg-white rounded-3xl p-4 border border-gray-100 shadow-sm hover:shadow-xl transition duration-300">
-                    <div class="relative w-full h-72 rounded-2xl overflow-hidden mb-6">
+                    <div class="relative w-full h-72 rounded-2xl overflow-hidden mb-6 bg-gray-100">
                         <img src="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?auto=format&fit=crop&w=800&q=80" alt="Bàn chải tre" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                        <span class="absolute top-4 left-4 bg-white/90 backdrop-blur text-emerald-700 text-xs font-bold px-3 py-1 rounded-full">Bán chạy</span>
                     </div>
                     <div>
                         <h3 class="text-xl font-bold text-gray-900 mb-2">Bàn Chải Đánh Răng Tre</h3>
                         <p class="text-gray-500 text-sm mb-4 line-clamp-2">Cán tre 100% tự phân hủy sinh học, lông bàn chải mềm mại không gây hại nướu.</p>
                         <div class="flex justify-between items-center">
                             <span class="text-xl font-bold text-gray-900">45.000₫</span>
-                            <button class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center hover:bg-emerald-600 hover:text-white transition">
+                            <button class="add-to-cart-btn w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center hover:bg-emerald-600 hover:text-white transition"
+                                data-id="1" data-name="Bàn Chải Đánh Răng Tre" data-price="45000" data-img="https://images.unsplash.com/photo-1610557892470-55d9e80c0bce?auto=format&fit=crop&w=200&q=80">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                             </button>
                         </div>
@@ -81,7 +77,7 @@
                 </div>
 
                 <div class="group bg-white rounded-3xl p-4 border border-gray-100 shadow-sm hover:shadow-xl transition duration-300">
-                    <div class="relative w-full h-72 rounded-2xl overflow-hidden mb-6">
+                    <div class="relative w-full h-72 rounded-2xl overflow-hidden mb-6 bg-gray-100">
                         <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80" alt="Túi Tote Canvas" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     </div>
                     <div>
@@ -89,7 +85,8 @@
                         <p class="text-gray-500 text-sm mb-4 line-clamp-2">Sợi cotton hữu cơ không tẩy nhuộm hóa chất, thiết kế tối giản, thay thế túi nilon.</p>
                         <div class="flex justify-between items-center">
                             <span class="text-xl font-bold text-gray-900">120.000₫</span>
-                            <button class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center hover:bg-emerald-600 hover:text-white transition">
+                            <button class="add-to-cart-btn w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center hover:bg-emerald-600 hover:text-white transition"
+                                data-id="2" data-name="Túi Canvas Organic" data-price="120000" data-img="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=200&q=80">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                             </button>
                         </div>
@@ -97,15 +94,16 @@
                 </div>
 
                 <div class="group bg-white rounded-3xl p-4 border border-gray-100 shadow-sm hover:shadow-xl transition duration-300">
-                    <div class="relative w-full h-72 rounded-2xl overflow-hidden mb-6">
+                    <div class="relative w-full h-72 rounded-2xl overflow-hidden mb-6 bg-gray-100">
                         <img src="https://images.unsplash.com/photo-1605600659908-0ef719419d41?auto=format&fit=crop&w=800&q=80" alt="Bình nước giữ nhiệt" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-2">Bình Thủy Tinh Bọc Vỏ Tre</h3>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Bình Thủy Tinh Vỏ Tre</h3>
                         <p class="text-gray-500 text-sm mb-4 line-clamp-2">Chất liệu cao cấp, giữ nhiệt hiệu quả, dung tích 500ml tiện lợi mang đi mỗi ngày.</p>
                         <div class="flex justify-between items-center">
                             <span class="text-xl font-bold text-gray-900">250.000₫</span>
-                            <button class="w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center hover:bg-emerald-600 hover:text-white transition">
+                            <button class="add-to-cart-btn w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center hover:bg-emerald-600 hover:text-white transition"
+                                data-id="3" data-name="Bình Thủy Tinh Vỏ Tre" data-price="250000" data-img="https://images.unsplash.com/photo-1605600659908-0ef719419d41?auto=format&fit=crop&w=200&q=80">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                             </button>
                         </div>
@@ -116,51 +114,160 @@
         </div>
     </section>
 
-    <section class="py-20 bg-emerald-900 text-white relative overflow-hidden">
-        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6">Bạn đã sẵn sàng cho một lối sống mới?</h2>
-            <p class="text-emerald-100 text-lg mb-8">Tham gia cộng đồng của chúng tôi và nhận ngay mã giảm giá 10% cho đơn hàng đầu tiên.</p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4 max-w-lg mx-auto">
-                <input type="email" placeholder="Nhập email của bạn..." class="px-6 py-4 rounded-full text-gray-900 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                <button class="bg-emerald-500 hover:bg-emerald-400 text-white px-8 py-4 rounded-full font-bold transition whitespace-nowrap">Đăng ký</button>
-            </div>
+    <div id="cartOverlay" class="fixed inset-0 bg-black/50 z-40 hidden opacity-0 transition-opacity duration-300"></div>
+    <div id="cartDrawer" class="fixed top-0 right-0 w-full md:w-[400px] h-full bg-white z-50 transform translate-x-full transition-transform duration-300 shadow-2xl flex flex-col">
+        <div class="p-6 border-b flex justify-between items-center bg-gray-50">
+            <h2 class="text-xl font-bold text-gray-900">Giỏ hàng của bạn</h2>
+            <button id="closeCartBtn" class="text-gray-400 hover:text-gray-600 transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
         </div>
-    </section>
-
-    <footer class="bg-gray-50 pt-16 pb-8 border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-                <div class="col-span-1 md:col-span-2">
-                    <span class="text-2xl font-bold text-emerald-600 mb-4 block">EcoLife🌿</span>
-                    <p class="text-gray-500 max-w-sm">Mang đến những giải pháp tiêu dùng bền vững, thân thiện với môi trường, hướng đến một tương lai xanh và sạch hơn cho thế hệ mai sau.</p>
-                </div>
-                <div>
-                    <h4 class="font-bold text-gray-900 mb-4">Danh mục</h4>
-                    <ul class="space-y-3 text-gray-500">
-                        <li><a href="#" class="hover:text-emerald-600">Đồ dùng cá nhân</a></li>
-                        <li><a href="#" class="hover:text-emerald-600">Đồ dùng gia đình</a></li>
-                        <li><a href="#" class="hover:text-emerald-600">Quà tặng xanh</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold text-gray-900 mb-4">Hỗ trợ</h4>
-                    <ul class="space-y-3 text-gray-500">
-                        <li><a href="#" class="hover:text-emerald-600">Chính sách đổi trả</a></li>
-                        <li><a href="#" class="hover:text-emerald-600">Vận chuyển</a></li>
-                        <li><a href="#" class="hover:text-emerald-600">Liên hệ</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-gray-200 pt-8 text-center md:text-left flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
-                <p>&copy; 2026 EcoLife Vietnam. Nền tảng thiết kế mẫu.</p>
-                <div class="flex space-x-4 mt-4 md:mt-0">
-                    <a href="#" class="hover:text-gray-600">Facebook</a>
-                    <a href="#" class="hover:text-gray-600">Instagram</a>
-                    <a href="#" class="hover:text-gray-600">TikTok</a>
-                </div>
-            </div>
+        <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-6 space-y-6">
+            <p class="text-center text-gray-500 mt-10">Giỏ hàng đang trống.</p>
         </div>
-    </footer>
+        <div class="p-6 border-t bg-gray-50">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-gray-600 font-medium">Tổng cộng:</span>
+                <span id="cartTotal" class="text-2xl font-bold text-emerald-600">0₫</span>
+            </div>
+            <button class="w-full bg-gray-900 text-white py-4 rounded-xl font-bold hover:bg-gray-800 transition shadow-lg">
+                Tiến hành thanh toán
+            </button>
+        </div>
+    </div>
 
+    <div id="toast" class="fixed bottom-5 right-5 bg-gray-900 text-white px-6 py-3 rounded-xl shadow-2xl transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center gap-3">
+        <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        <span id="toastMsg">Đã thêm vào giỏ!</span>
+    </div>
+
+    <script>
+        // 1. DỮ LIỆU GIỎ HÀNG (Lấy từ LocalStorage để không mất khi F5)
+        let cart = JSON.parse(localStorage.getItem('ecoCart')) || [];
+
+        // 2. KHAI BÁO CÁC PHẦN TỬ UI
+        const cartOverlay = document.getElementById('cartOverlay');
+        const cartDrawer = document.getElementById('cartDrawer');
+        const openCartBtn = document.getElementById('openCartBtn');
+        const closeCartBtn = document.getElementById('closeCartBtn');
+        const cartCountBadge = document.getElementById('cartCountBadge');
+        const cartItemsContainer = document.getElementById('cartItemsContainer');
+        const cartTotal = document.getElementById('cartTotal');
+        const toast = document.getElementById('toast');
+
+        // Hàm định dạng tiền VNĐ
+        const formatMoney = (amount) => amount.toLocaleString('vi-VN') + '₫';
+
+        // 3. CẬP NHẬT GIAO DIỆN GIỎ HÀNG
+        function updateCartUI() {
+            // Cập nhật số lượng trên Navbar
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCountBadge.innerText = totalItems;
+
+            // Tính tổng tiền
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.innerText = formatMoney(totalPrice);
+
+            // Vẽ danh sách sản phẩm trong Ngăn kéo
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="text-center text-gray-500 mt-10">Giỏ hàng đang trống.</p>';
+            } else {
+                cartItemsContainer.innerHTML = cart.map((item, index) => `
+                    <div class="flex items-center gap-4 border-b pb-4">
+                        <img src="${item.img}" class="w-20 h-20 object-cover rounded-lg border">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-gray-900 text-sm">${item.name}</h4>
+                            <p class="text-emerald-600 font-medium text-sm">${formatMoney(item.price)}</p>
+                            <div class="flex items-center gap-3 mt-2">
+                                <button onclick="changeQty(${index}, -1)" class="w-7 h-7 bg-gray-100 rounded flex items-center justify-center hover:bg-gray-200">-</button>
+                                <span class="text-sm font-medium w-4 text-center">${item.quantity}</span>
+                                <button onclick="changeQty(${index}, 1)" class="w-7 h-7 bg-gray-100 rounded flex items-center justify-center hover:bg-gray-200">+</button>
+                            </div>
+                        </div>
+                        <button onclick="removeItem(${index})" class="text-gray-400 hover:text-red-500 transition">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // 4. CÁC HÀM XỬ LÝ LOGIC
+        function saveCart() {
+            localStorage.setItem('ecoCart', JSON.stringify(cart));
+            updateCartUI();
+        }
+
+        function changeQty(index, change) {
+            cart[index].quantity += change;
+            if (cart[index].quantity <= 0) cart.splice(index, 1); // Xóa nếu số lượng = 0
+            saveCart();
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            saveCart();
+        }
+
+        function showToast(productName) {
+            document.getElementById('toastMsg').innerText = `Đã thêm ${productName}`;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 2500);
+        }
+
+        // 5. GẮN SỰ KIỆN CHO CÁC NÚT "THÊM VÀO GIỎ"
+        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const name = this.getAttribute('data-name');
+                const price = parseInt(this.getAttribute('data-price'));
+                const img = this.getAttribute('data-img');
+
+                // Kiểm tra xem sản phẩm đã có trong giỏ chưa
+                const existingItem = cart.find(item => item.id === id);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({ id, name, price, img, quantity: 1 });
+                }
+
+                saveCart();
+                showToast(name);
+
+                // Hiệu ứng đổi icon ngắn gọn trên nút
+                const originalHtml = this.innerHTML;
+                this.innerHTML = `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>`;
+                this.classList.replace('text-emerald-600', 'text-white');
+                this.classList.replace('bg-emerald-50', 'bg-emerald-600');
+                
+                setTimeout(() => {
+                    this.innerHTML = originalHtml;
+                    this.classList.replace('text-white', 'text-emerald-600');
+                    this.classList.replace('bg-emerald-600', 'bg-emerald-50');
+                }, 800);
+            });
+        });
+
+        // 6. ĐÓNG MỞ NGĂN KÉO GIỎ HÀNG
+        function toggleCart() {
+            const isClosed = cartDrawer.classList.contains('translate-x-full');
+            if (isClosed) {
+                cartDrawer.classList.remove('translate-x-full');
+                cartOverlay.classList.remove('hidden');
+                setTimeout(() => cartOverlay.classList.remove('opacity-0'), 10); // Fade in mượt
+            } else {
+                cartDrawer.classList.add('translate-x-full');
+                cartOverlay.classList.add('opacity-0');
+                setTimeout(() => cartOverlay.classList.add('hidden'), 300); // Đợi CSS transition xong
+            }
+        }
+
+        openCartBtn.addEventListener('click', toggleCart);
+        closeCartBtn.addEventListener('click', toggleCart);
+        cartOverlay.addEventListener('click', toggleCart);
+
+        // Khởi tạo giao diện lần đầu khi load trang
+        updateCartUI();
+    </script>
 </body>
 </html>
