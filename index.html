@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoSmart - Sản Phẩm Xanh</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#" class="logo"><i class="fas fa-leaf"></i> ECO<span>SMART</span></a>
+        <div class="nav-icons" id="open-cart">
+            <i class="fas fa-shopping-basket"></i>
+            <span class="cart-count">0</span>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Sống Xanh Mỗi Ngày</h1>
+            <p>Phụ kiện bền vững từ sợi cà phê và vật liệu tái chế.</p>
+            <a href="#shop" class="btn-primary">Khám Phá Ngay</a>
+        </div>
+    </section>
+
+    <section class="shop" id="shop">
+        <h2 class="section-title">Sản Phẩm Của Chúng Tôi</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=500&q=80')"></div>
+                <div class="product-info">
+                    <h3>Ốp Lưng Sợi Cà Phê</h3>
+                    <p class="price" data-price="290000">290.000đ</p>
+                    <button class="btn-add">Thêm vào giỏ</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1622467824237-03796cd2ad3d?auto=format&fit=crop&w=500&q=80')"></div>
+                <div class="product-info">
+                    <h3>Bình Nước Tre Eco</h3>
+                    <p class="price" data-price="350000">350.000đ</p>
+                    <button class="btn-add">Thêm vào giỏ</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=500&q=80')"></div>
+                <div class="product-info">
+                    <h3>Túi Vải Canvas</h3>
+                    <p class="price" data-price="120000">120.000đ</p>
+                    <button class="btn-add">Thêm vào giỏ</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Giỏ hàng</h3>
+            <span id="close-cart">&times;</span>
+        </div>
+        <div id="cart-items" class="cart-body"></div>
+        <div class="cart-footer">
+            <h4>Tổng: <span id="cart-total">0đ</span></h4>
+            <button class="btn-checkout" onclick="openModal()">Thanh Toán</button>
+        </div>
+    </div>
+
+    <div id="payment-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Thông Tin Đơn Hàng</h3>
+            <form id="checkout-form">
+                <input type="text" placeholder="Tên của bạn" required>
+                <input type="tel" placeholder="Số điện thoại" required>
+                <div class="qr-box">
+                    <p>Quét mã QR để thanh toán (VietQR)</p>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=00020101021138540010A0000007270124000697041501101234567890208QRIBFTTA5204500053037045802VN62110807EcoShop6304" alt="QR Code">
+                </div>
+                <button type="submit" class="btn-confirm">Xác Nhận Đã Chuyển Khoản</button>
+            </form>
+        </div>
+    </div>
+
+    <a href="https://zalo.me/09xxxxxxxx" class="zalo-float" target="_blank">
+        <i class="fas fa-comment"></i> Chat Zalo
+    </a>
+
+    <script src="script.js"></script>
+</body>
+</html>
