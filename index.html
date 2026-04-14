@@ -1,46 +1,46 @@
 <!DOCTYPE html>
-<html lang="vi" class="scroll-smooth">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoLife - Sản Phẩm Xanh</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Ecofami - Sống Xanh Mỗi Hành Trình</title>
     <style>
-        /* Import font Inter cho chữ thường và Playfair Display cho tiêu đề thanh toán */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
-        
-        body { font-family: 'Inter', sans-serif; }
-        .font-serif { font-family: 'Playfair Display', Georgia, serif; }
-        
-        /* Ẩn thanh cuộn cho mượt */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        body { font-family: 'Arial', sans-serif; background-color: #f4f7f6; color: #333; margin: 0; }
+        header { background: #2d5a27; color: white; padding: 20px; text-align: center; }
+        .container { display: flex; flex-wrap: wrap; justify-content: center; padding: 20px; }
+        .product-card { background: white; border-radius: 8px; margin: 15px; width: 250px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); overflow: hidden; }
+        .product-card img { width: 100%; height: 200px; object-fit: cover; }
+        .info { padding: 15px; text-align: center; }
+        .price { color: #2d5a27; font-weight: bold; font-size: 1.2em; }
+        button { background: #2d5a27; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
     </style>
 </head>
-<body class="bg-[#fafafa] text-gray-800 antialiased overflow-x-hidden relative">
-
-    <nav class="bg-white/90 backdrop-blur-md shadow-sm fixed w-full z-40 top-0 transition-all">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex-shrink-0 flex items-center cursor-pointer">
-                    <span class="text-2xl font-bold text-emerald-600 tracking-tight">EcoLife🌿</span>
-                </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#" class="text-gray-900 font-medium hover:text-emerald-600 transition-colors">Trang chủ</a>
-                    <a href="#products" class="text-gray-500 font-medium hover:text-emerald-600 transition-colors">Cửa hàng</a>
-                    <a href="#about" class="text-gray-500 font-medium hover:text-emerald-600 transition-colors">Về chúng tôi</a>
-                </div>
-                <div>
-                    <button id="openCartBtn" class="bg-emerald-600 text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-emerald-700 transition shadow-md flex items-center gap-2">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                        <span id="cartCountBadge">0</span>
-                    </button>
-                </div>
-            </div>
+<body>
+    <header>
+        <h1>ECOFAMI SHOP</h1>
+        <p>Mang Ecofami theo mọi hành trình</p>
+    </header>
+    <div class="container" id="product-list">
         </div>
-    </nav>
 
-    <section class="pt-32 pb-20 lg:pt-40 lg:pb-28 bg-gradient-to-b from-emerald-50 to-[#fafafa]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <span class="text-
+    <script>
+        // Giả lập lấy dữ liệu từ phần Admin
+        const products = [
+            { name: "Eco Silk 2 in 1", price: "150.000đ", img: "eco-silk.jpg" },
+            { name: "Ecofami Travel Kit", price: "350.000đ", img: "travel-kit.jpg" }
+        ];
+
+        const list = document.getElementById('product-list');
+        products.forEach(p => {
+            list.innerHTML += `
+                <div class="product-card">
+                    <img src="${p.img}" alt="${p.name}">
+                    <div class="info">
+                        <h3>${p.name}</h3>
+                        <p class="price">${p.price}</p>
+                        <button>Thêm vào giỏ hàng</button>
+                    </div>
+                </div>`;
+        });
+    </script>
+</body>
+</html>
