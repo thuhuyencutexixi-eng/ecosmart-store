@@ -1,105 +1,28 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <title>Hệ Thống Quản Trị EcoSmart</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Phần Login */
-        #login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #2d6a4f; z-index: 9999; display: flex; align-items: center; justify-content: center; color: white; }
-        .login-box { background: white; padding: 40px; border-radius: 15px; color: #333; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-        input[type="password"] { width: 100%; padding: 12px; margin: 20px 0; border: 1px solid #ddd; border-radius: 8px; }
-        .btn-login { background: #2d6a4f; color: white; border: none; padding: 10px 30px; border-radius: 8px; cursor: pointer; font-weight: bold; }
-
-        /* Giao diện Admin */
-        :root { --primary: #2d6a4f; --bg: #f4f7f6; }
-        body { font-family: 'Quicksand', sans-serif; background: var(--bg); margin: 0; display: none; } /* Ẩn body mặc định */
-        .sidebar { width: 250px; height: 100vh; background: var(--primary); color: white; padding: 20px; position: fixed; }
-        .main-content { margin-left: 250px; padding: 30px; }
-        table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        th, td { text-align: left; padding: 15px; border-bottom: 1px solid #eee; }
-        th { background: #f8f9fa; color: #666; }
-        .status-badge { padding: 5px 10px; border-radius: 20px; font-size: 12px; background: #ffe8cc; color: #d9480f; }
+        .admin-box { max-width: 500px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; background: #fff; }
+        input, select { width: 100%; padding: 10px; margin: 10px 0; }
     </style>
 </head>
 <body>
-
-    <div id="login-overlay">
-        <div class="login-box">
-            <i class="fas fa-user-shield style="font-size: 40px; color: #2d6a4f;"></i>
-            <h2>Admin Login</h2>
-            <input type="password" id="admin-pass" placeholder="Nhập mật khẩu quản trị">
-            <button class="btn-login" onclick="checkPass()">Đăng Nhập</button>
-        </div>
-    </div>
-
-    <div class="sidebar">
-        <h2>ECO ADMIN</h2>
-        <ul>
-            <li style="list-style:none; padding:15px; background:rgba(255,255,255,0.2); border-radius:8px;"><i class="fas fa-shopping-cart"></i> Đơn hàng thật</li>
-        </ul>
-    </div>
-
-    <div class="main-content">
-        <h1>Quản Lý Đơn Hàng (Dữ liệu từ Google Sheets)</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Khách hàng</th>
-                    <th>Số điện thoại</th>
-                    <th>Sản phẩm</th>
-                    <th>Tổng tiền</th>
-                    <th>Thời gian</th>
-                    <th>Trạng thái</th>
-                </tr>
-            </thead>
-            <tbody id="order-list">
-                <tr><td colspan="6" style="text-align:center;">Đang tải dữ liệu...</td></tr>
-            </tbody>
-        </table>
+    <div class="admin-box">
+        <h2>Hệ thống niêm yết sản phẩm</h2>
+        <input type="text" id="pName" placeholder="Tên sản phẩm (Vd: Dầu gội Herbal Scent)">
+        <input type="number" id="pPrice" placeholder="Giá tiền">
+        <select id="pCategory">
+            <option value="travel">Travel Kit</option>
+            <option value="bottle">Chai lẻ</option>
+        </select>
+        <button onclick="addProduct()" style="width:100%; background: #28a745; color:white; padding:10px;">Niêm yết sản phẩm</button>
     </div>
 
     <script>
-        const API_URL = "https://sheetdb.io/api/v1/hwf1i22sinqn0";
-        const PASS_ADMIN = "Huyen2705@"; // THAY MẬT KHẨU CỦA BẠN TẠI ĐÂY
-
-        function checkPass() {
-            const input = document.getElementById('admin-pass').value;
-            if(input === PASS_ADMIN) {
-                document.getElementById('login-overlay').style.display = 'none';
-                document.body.style.display = 'block';
-                loadOrders(); // Chỉ tải data khi đã login đúng
-            } else {
-                alert("Sai mật khẩu rồi ditcum đòi check à!");
-            }
-        }
-
-        async function loadOrders() {
-            try {
-                const response = await fetch(API_URL);
-                const data = await response.json();
-                
-                const tbody = document.getElementById('order-list');
-                if (data.length === 0) {
-                    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">Chưa có đơn hàng nào</td></tr>';
-                    return;
-                }
-
-                // Hiển thị từ đơn hàng mới nhất lên đầu
-                tbody.innerHTML = data.reverse().map(order => `
-                    <tr>
-                        <td><strong>${order["Tên khách hàng"] || 'N/A'}</strong></td>
-                        <td>${order["Số điện thoại"] || 'N/A'}</td>
-                        <td>${order["Sản phẩm"] || 'N/A'}</td>
-                        <td style="color:green; font-weight:bold;">${order["Tổng tiền"] || '0đ'}</td>
-                        <td>${order["Thời gian"] || ''}</td>
-                        <td><span class="status-badge">${order["Trạng thái"] || 'Mới'}</span></td>
-                    </tr>
-                `).join('');
-            } catch (error) {
-                alert("Không thể kết nối với Google Sheets. Kiểm tra lại API SheetDB!");
-            }
+        function addProduct() {
+            const name = document.getElementById('pName').value;
+            alert("Đã niêm yết thành công sản phẩm: " + name);
+            // Ở đây sẽ dùng fetch() để gửi dữ liệu lên server
         }
     </script>
 </body>
